@@ -78,25 +78,19 @@ ENV PATH=$PATH:/opt/conda/bin
 RUN conda update -q -y conda
 
 # conda environment
-COPY environment.yml /root/code/garage/environment.yml
-RUN conda env create -f /root/code/garage/environment.yml && \
+COPY environment.yml /root/environment.yml
+RUN conda env create -f /root/environment.yml && \
     rm -rf /opt/conda/pkgs/*
 
 # Extras
 # prevent pip from complaining about available upgrades
-RUN ["/bin/bash", "-c", "source activate garage && pip install --upgrade pip"]
+RUN ["/bin/bash", "-c", "source activate sawyer && pip install --upgrade pip"]
 # TensorFlow is not in environment.yml because of CPU vs GPU
-RUN ["/bin/bash", "-c", "source activate garage && pip install tensorflow==1.8.0"]
+RUN ["/bin/bash", "-c", "source activate sawyer && pip install tensorflow==1.8.0"]
 # Fix Box2D install
 # See https://github.com/openai/gym/issues/100
 # See https://github.com/pybox2d/pybox2d/issues/82
-RUN ["/bin/bash", "-c", "source activate garage && pip uninstall -y Box2D Box2D-kengz box2d-py && pip install Box2D"]
-
-# Setup repo
-WORKDIR /root/code/garage
-# Pre-build pre-commit env
-COPY .pre-commit-config.yaml /root/code/garage
-RUN ["/bin/bash", "-c", "source activate garage && git init && pre-commit"]
+RUN ["/bin/bash", "-c", "source activate sawyer && pip uninstall -y Box2D Box2D-kengz box2d-py && pip install Box2D"]
 
 # ROS
 # setup sources.list
@@ -117,7 +111,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-RUN ["/bin/bash", "-c", "source activate garage && pip install catkin_pkg rospkg defusedxml opencv-python empy"]
+RUN ["/bin/bash", "-c", "source activate sawyer && pip install catkin_pkg rospkg defusedxml opencv-python empy"]
 
 # Prepare Intera SDK installation
 # Install dependencies
@@ -170,8 +164,9 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["garage/contrib/ros/docker/sawyer/docker-entrypoint.sh"]
+WORKDIR /root
 
-# Add code stub last
-COPY . /root/code/garage
-ENV PYTHONPATH=$PYTHONPATH:/root/code/garage
+ENTRYPOINT ["/root/docker-entrypoint.sh"]
+
+COPY sawyer /root/code/sawyer
+COPY docker-entrypoint.sh /root/
