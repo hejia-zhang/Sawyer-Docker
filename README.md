@@ -1,4 +1,9 @@
 # Sawyer Docker
+## For whom
+- If you are reinforcement learning guys, it's better to use [gym-sawyer](https://github.com/rlworkgroup/gym-sawyer).
+- I use this repo to ensure I can use Sawyer whenever I want.
+- I use this repo to ensure I can add new dependecies easily.
+ 
 ## Instructions
 - If you are using NVIDIA graphic cards
     install nvidia-docker first.
