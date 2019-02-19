@@ -201,7 +201,7 @@ fi
 
 if [ ! -d "$ROS_WS/src/moveit" ] && [ ! -f "$ROS_WS/src/moveit" ]; then
  cd "/home/$USER/ros_ws"
- wstool merge -t src https://raw.githubusercontent.com/ros-planning/moveit/kinetic-devel/moveit.rosinstall
+ wstool merge -t src /root/moveit.rosinstall
  wstool update -t src
  rosdep install -y --from-paths src --ignore-src --rosdistro kinetic
  # Have to exclude some targets

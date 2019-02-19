@@ -170,3 +170,4 @@ ENTRYPOINT ["/root/docker-entrypoint.sh"]
 
 COPY sawyer /root/code/sawyer
 COPY docker-entrypoint.sh /root/
+COPY moveit.rosinstall /root/
