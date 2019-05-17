@@ -30,14 +30,14 @@ dependencies:
         - jsonmerge
         - joblib==0.10.3
         - jupyter
-        - git+https://github.com/Lasagne/Lasagne.git@a61b76fd991f84c50acdb7bea02118899b5fefe1#egg=lasagne
+        # - git+https://github.com/Lasagne/Lasagne.git@a61b76fd991f84c50acdb7bea02118899b5fefe1#egg=lasagne
         - mako
         - matplotlib
         - memory_profiler
         # - mujoco-py<1.50.2,>=1.50.1
         - pandas
         - path.py
-        - git+https://github.com/plotly/plotly.py.git@2594076e29584ede2d09f2aa40a8a195b3f3fc66#egg=plotly
+        # - git+https://github.com/plotly/plotly.py.git@2594076e29584ede2d09f2aa40a8a195b3f3fc66#egg=plotly
         - polling
         - protobuf
         - pygame
